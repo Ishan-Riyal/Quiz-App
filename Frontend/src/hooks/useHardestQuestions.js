@@ -7,9 +7,7 @@ export const useHardestQuestions = () => {
 
   const getData = async () => {
     try {
-      const res = await fetchWithAuth(
-        "http://localhost:8000/api/quiz/analytics/hardest",
-      );
+      const res = await fetchWithAuth("/api/quiz/analytics/hardest");
 
       if (res.ok) {
         const data = await res.json();

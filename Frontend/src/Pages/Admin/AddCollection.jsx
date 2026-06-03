@@ -8,7 +8,7 @@ function AddCollection({ refreshCategories, closeModal }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8000/api/collection/add", {
+      const res = await fetch("/api/collection/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

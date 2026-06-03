@@ -11,7 +11,7 @@ function ProfileScreen() {
   const [stats, setStats] = useState({ best: 0, total: 0, avg: 0 });
   const [uploading, setUploading] = useState(false);
 
-  const API_BASE = "http://localhost:8000";
+  const API_BASE = "";
 
   useEffect(() => {
     const fetchStats = async () => {

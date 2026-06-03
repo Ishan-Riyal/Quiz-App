@@ -11,9 +11,7 @@ export const useLeaderboard = () => {
   useEffect(() => {
     const fetchCats = async () => {
       try {
-        const res = await fetchWithAuth(
-          "http://localhost:8000/api/users/categories",
-        );
+        const res = await fetchWithAuth("/api/users/categories");
         const data = await res.json();
         setCategories(data);
         // Default to the first available category
@@ -31,7 +29,7 @@ export const useLeaderboard = () => {
       setLoading(true);
       try {
         const res = await fetchWithAuth(
-          `http://localhost:8000/api/users/leaderboard?type=${activeTab}&category=${category}`,
+          `/api/users/leaderboard?type=${activeTab}&category=${category}`,
         );
         const data = await res.json();
         setLeaderboard(Array.isArray(data) ? data : []);

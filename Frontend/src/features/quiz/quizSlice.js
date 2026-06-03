@@ -4,15 +4,12 @@ export const fetchQuizData = createAsyncThunk(
   "quiz/fetchCategory",
   async ({ category, type }, { rejectWithValue }) => {
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/quiz/${category}?type=${type}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+      const res = await fetch(`/api/quiz/${category}?type=${type}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      );
+      });
 
       if (!res.ok) {
         const errorData = await res.json();

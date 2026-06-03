@@ -11,7 +11,7 @@ function HomeScreen() {
   useEffect(() => {
     const getCollections = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/collection/all");
+        const res = await fetch("/api/collection/all");
         const data = await res.json();
         setCollections(data);
       } catch (err) {

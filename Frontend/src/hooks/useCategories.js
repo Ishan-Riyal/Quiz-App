@@ -8,7 +8,7 @@ export const useCategories = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8000/api/categories");
+      const res = await fetch("/api/categories");
       const data = await res.json();
       if (res.ok) setCategories(data);
     } catch (err) {
@@ -21,7 +21,7 @@ export const useCategories = () => {
   const AddCollection = async (catData) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8000/api/categories", {
+      const res = await fetch("/api/categories", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

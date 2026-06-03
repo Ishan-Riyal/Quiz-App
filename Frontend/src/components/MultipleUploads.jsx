@@ -12,17 +12,14 @@ const MultipleUploads = ({ type, refreshList }) => {
         const jsonData = JSON.parse(event.target.result);
         const token = localStorage.getItem("token");
 
-        const res = await fetch(
-          `http://localhost:8000/api/quiz/multiple-add/${type}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(jsonData),
+        const res = await fetch(`/api/quiz/multiple-add/${type}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-        );
+          body: JSON.stringify(jsonData),
+        });
 
         if (res.ok) {
           toast.success(`${jsonData.length} Items added successfully! ✅`);

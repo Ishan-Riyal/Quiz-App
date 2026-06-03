@@ -11,17 +11,14 @@ export const useResultLogic = (questions, userAnswers, token, mode) => {
       try {
         setLoading(true);
         const typePath = mode?.startsWith("coding") ? "coding" : "mcq";
-        const res = await fetch(
-          `http://localhost:8000/api/quiz/${typePath}/all-answers`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ questionIds: questions.map((q) => q._id) }),
+        const res = await fetch(`/api/quiz/${typePath}/all-answers`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-        );
+          body: JSON.stringify({ questionIds: questions.map((q) => q._id) }),
+        });
         const data = await res.json();
         if (res.ok) setCorrectAnswers(data.answers);
       } catch (err) {

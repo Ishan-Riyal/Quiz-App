@@ -12,12 +12,9 @@ function UserHistoryScreen() {
   useEffect(() => {
     const getHistory = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/users/history",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const response = await fetch("/api/users/history", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const data = await response.json();
         if (response.ok) setHistory(data);
       } catch (err) {

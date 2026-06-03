@@ -12,16 +12,13 @@ export function useReveal(questionId, mode) {
     if (!questionId) return;
     setLoading(true);
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/quiz/theory/reveal/${questionId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+      const res = await fetch(`/api/quiz/theory/reveal/${questionId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      );
+      });
       const data = await res.json();
       setRevealedData(data.answer);
     } catch (err) {

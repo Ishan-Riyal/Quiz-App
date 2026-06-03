@@ -29,7 +29,7 @@ export const useQuestionForm = (type, idOrCollectionId) => {
         try {
           const token = localStorage.getItem("token");
           const res = await fetch(
-            `http://localhost:8000/api/admin/get-single/${type}/${questionId}`,
+            `/api/admin/get-single/${type}/${questionId}`,
             { headers: { Authorization: `Bearer ${token}` } },
           );
           const data = await res.json();
@@ -86,8 +86,8 @@ export const useQuestionForm = (type, idOrCollectionId) => {
     };
 
     const url = questionId
-      ? `http://localhost:8000/api/admin/update/${type}/${questionId}`
-      : `http://localhost:8000/api/admin/add/${type}`;
+      ? `/api/admin/update/${type}/${questionId}`
+      : `/api/admin/add/${type}`;
 
     try {
       const token = localStorage.getItem("token");

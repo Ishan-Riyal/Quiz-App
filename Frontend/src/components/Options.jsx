@@ -12,7 +12,7 @@ function Options({ currentQuestion }) {
   const checkAnswer = async (optionValue) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:8000/api/quiz/mcqs/check", {
+      const res = await fetch("/api/quiz/mcqs/check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

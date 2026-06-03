@@ -20,7 +20,7 @@ export const useAuth = () => {
     setLoading(true);
 
     try {
-      const res = await fetchWithAuth("http://localhost:8000/api/auth/login", {
+      const res = await fetchWithAuth("/api/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
@@ -53,13 +53,10 @@ export const useAuth = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetchWithAuth(
-        "http://localhost:8000/api/auth/register",
-        {
-          method: "POST",
-          body: JSON.stringify(formData),
-        },
-      );
+      const res = await fetchWithAuth("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
 
       const data = await res.json();
 

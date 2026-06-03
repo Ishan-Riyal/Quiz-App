@@ -14,9 +14,9 @@ export const useAdminData = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [userRes, colRes, chartRes] = await Promise.all([
-        fetch("http://localhost:8000/api/admin/users", { headers }),
-        fetch("http://localhost:8000/api/collection/all", { headers }),
-        fetch("http://localhost:8000/api/admin/analytics", { headers }),
+        fetch("/api/admin/users", { headers }),
+        fetch("/api/collection/all", { headers }),
+        fetch("/api/admin/analytics", { headers }),
       ]);
 
       if (userRes.ok) setUsers(await userRes.json());
@@ -38,7 +38,7 @@ export const useAdminData = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:8000/api/collection/${id}`, {
+      const res = await fetch(`/api/collection/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

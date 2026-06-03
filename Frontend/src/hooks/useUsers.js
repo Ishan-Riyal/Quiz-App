@@ -9,7 +9,7 @@ export const useUsers = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8000/api/admin/users", {
+      const res = await fetch("/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -24,13 +24,10 @@ export const useUsers = () => {
   const toggleStatus = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(
-        `http://localhost:8000/api/admin/toggle-status/${id}`,
-        {
-          method: "PATCH",
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const res = await fetch(`/api/admin/toggle-status/${id}`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const data = await res.json();
 
@@ -53,7 +50,7 @@ export const useUsers = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:8000/api/admin/users/${id}`, {
+      const res = await fetch(`/api/admin/users/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -69,7 +66,7 @@ export const useUsers = () => {
   const toggleRole = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:8000/api/admin/role/${id}`, {
+      const res = await fetch(`/api/admin/role/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });

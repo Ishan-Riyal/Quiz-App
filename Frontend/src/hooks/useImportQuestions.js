@@ -28,17 +28,14 @@ export const useImportQuestions = (type, activeId, category) => {
           collectionId: activeId,
         }));
 
-        const res = await fetch(
-          `http://localhost:8000/api/admin/multiple-add/${type}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify({ collectionName: activeId, questions }),
+        const res = await fetch(`/api/admin/multiple-add/${type}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        );
+          body: JSON.stringify({ collectionName: activeId, questions }),
+        });
 
         if (res.ok) {
           toast.success("Import Successful!");

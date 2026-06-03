@@ -12,7 +12,7 @@ export const useScore = (points, user, token, topicName, mode) => {
 
     setSaving(true);
     try {
-      const res = await fetch("http://localhost:8000/api/users/save-score", {
+      const res = await fetch("/api/users/save-score", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

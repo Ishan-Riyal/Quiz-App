@@ -15,10 +15,9 @@ export const useQuestions = (type, categoryName) => {
     if (!categoryName || categoryName === "undefined") return;
     setLoading(true);
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/admin/collection/${type}/${categoryName}`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      const res = await fetch(`/api/admin/collection/${type}/${categoryName}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await res.json();
       if (res.ok) setQuestions(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -83,8 +82,8 @@ export const useQuestions = (type, categoryName) => {
     const isBulk = Array.isArray(idOrIds);
     if (!window.confirm("Are you sure you want to delete this?")) return;
     const url = isBulk
-      ? `http://localhost:8000/api/admin/multiple-delete/${type}`
-      : `http://localhost:8000/api/admin/delete/${type}/${idOrIds}`;
+      ? `/api/admin/multiple-delete/${type}`
+      : `/api/admin/delete/${type}/${idOrIds}`;
 
     try {
       const res = await fetch(url, {
