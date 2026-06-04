@@ -29,6 +29,8 @@ app.use(
   }),
 );
 
+app.options("*", cors());
+
 // Routes setup
 app.use("/api/auth", authRoutes);
 app.use("/api/quiz", quizRoutes);
