@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:8173",
-      "https://quiz-app-phi-ochre.vercel.app",
+      "https://quiz-app-frontend-kappa-swart.vercel.app",
       process.env.CLIENT_URL,
     ],
     credentials: true,
