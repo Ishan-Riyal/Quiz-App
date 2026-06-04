@@ -20,7 +20,11 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["http://localhost:8173", process.env.CLIENT_URL],
+    origin: [
+      "http://localhost:8173",
+      "https://quiz-app-phi-ochre.vercel.app",
+      process.env.CLIENT_URL,
+    ],
     credentials: true,
   }),
 );
