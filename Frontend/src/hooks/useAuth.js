@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { setUser, logoutUser } from "../features/auth/authSlice";
 import { fetchWithAuth } from "../utils/api";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ export const useAuth = () => {
     setLoading(true);
 
     try {
-      const res = await fetchWithAuth("/api/auth/login", {
+      const res = await fetchWithAuth(`${API_BASE}/api/auth/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
@@ -53,7 +55,7 @@ export const useAuth = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetchWithAuth("/api/auth/register", {
+      const res = await fetchWithAuth(`${API_BASE}/api/auth/register`, {
         method: "POST",
         body: JSON.stringify(formData),
       });

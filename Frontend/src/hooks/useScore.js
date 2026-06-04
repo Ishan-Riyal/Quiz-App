@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useScore = (points, user, token, topicName, mode) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState(user?.name || user?.username || "");
@@ -12,7 +14,7 @@ export const useScore = (points, user, token, topicName, mode) => {
 
     setSaving(true);
     try {
-      const res = await fetch("/api/users/save-score", {
+      const res = await fetch(`${API_BASE}/api/users/save-score`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

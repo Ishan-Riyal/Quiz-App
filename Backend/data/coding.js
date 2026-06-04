@@ -805,7 +805,7 @@ const codingQuestions = [
     description:
       "Create a complete user registration endpoint with validation and password hashing.",
     codeSnippet:
-      "app.post('/api/register', async (req, res) => {\n  // your code here\n});",
+      "app.post('`${API_BASE}/api/register', async (req, res) => {\n  // your code here\n});",
     points: 50,
   },
   {
@@ -815,7 +815,7 @@ const codingQuestions = [
     description:
       "Create a login endpoint that validates credentials and returns JWT token.",
     codeSnippet:
-      "app.post('/api/login', async (req, res) => {\n  // your code here\n});",
+      "app.post('`${API_BASE}/api/login', async (req, res) => {\n  // your code here\n});",
     points: 50,
   },
   {
@@ -825,7 +825,7 @@ const codingQuestions = [
     description:
       "Create a protected route that requires authentication to access user profile.",
     codeSnippet:
-      "app.get('/api/profile', authenticateToken, async (req, res) => {\n  // your code here\n});",
+      "app.get('`${API_BASE}/api/profile', authenticateToken, async (req, res) => {\n  // your code here\n});",
     points: 45,
   },
   {
@@ -835,7 +835,7 @@ const codingQuestions = [
     description:
       "Create an API endpoint that supports search and multiple filters.",
     codeSnippet:
-      "app.get('/api/products/search', async (req, res) => {\n  // your code here\n});",
+      "app.get('`${API_BASE}/api/products/search', async (req, res) => {\n  // your code here\n});",
     points: 40,
   },
   {
@@ -845,7 +845,7 @@ const codingQuestions = [
     description:
       "Create an API to upload images and save file path to database.",
     codeSnippet:
-      "const upload = multer({ dest: 'uploads/' });\n\napp.post('/api/upload', upload.single('image'), async (req, res) => {\n  // your code here\n});",
+      "const upload = multer({ dest: 'uploads/' });\n\napp.post('`${API_BASE}/api/upload', upload.single('image'), async (req, res) => {\n  // your code here\n});",
     points: 50,
   },
   {
@@ -864,7 +864,7 @@ const codingQuestions = [
     description:
       "Create an order processing endpoint that handles payment and updates inventory.",
     codeSnippet:
-      "app.post('/api/orders', authenticateToken, async (req, res) => {\n  // your code here\n});",
+      "app.post('`${API_BASE}/api/orders', authenticateToken, async (req, res) => {\n  // your code here\n});",
     points: 60,
   },
   {
@@ -884,7 +884,7 @@ const codingQuestions = [
     description:
       "Implement complete password reset flow (request, send email, reset).",
     codeSnippet:
-      "// Request reset\napp.post('/api/forgot-password', async (req, res) => {\n  // your code here\n});\n\n// Reset password\napp.post('/api/reset-password', async (req, res) => {\n  // your code here\n});",
+      "// Request reset\napp.post('`${API_BASE}/api/forgot-password', async (req, res) => {\n  // your code here\n});\n\n// Reset password\napp.post('`${API_BASE}/api/reset-password', async (req, res) => {\n  // your code here\n});",
     points: 55,
   },
   {
@@ -903,7 +903,7 @@ const codingQuestions = [
     description:
       "Create endpoints to like and unlike a post with proper user tracking.",
     codeSnippet:
-      "app.post('/api/posts/:id/like', authenticateToken, async (req, res) => {\n  // your code here\n});",
+      "app.post('`${API_BASE}/api/posts/:id/like', authenticateToken, async (req, res) => {\n  // your code here\n});",
     points: 40,
   },
   {
@@ -930,7 +930,7 @@ const codingQuestions = [
     title: "Follow/Unfollow System",
     description: "Create follow/unfollow functionality for users.",
     codeSnippet:
-      "app.post('/api/users/:id/follow', authenticateToken, async (req, res) => {\n  // your code here\n});",
+      "app.post('`${API_BASE}/api/users/:id/follow', authenticateToken, async (req, res) => {\n  // your code here\n});",
     points: 45,
   },
   {
@@ -940,7 +940,7 @@ const codingQuestions = [
     description:
       "Create an activity feed that shows posts from followed users in chronological order.",
     codeSnippet:
-      "app.get('/api/feed', authenticateToken, async (req, res) => {\n  // your code here\n});",
+      "app.get('`${API_BASE}/api/feed', authenticateToken, async (req, res) => {\n  // your code here\n});",
     points: 55,
   },
 ];

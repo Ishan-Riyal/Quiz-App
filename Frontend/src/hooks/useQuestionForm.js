@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useQuestionForm = (type, idOrCollectionId) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +31,7 @@ export const useQuestionForm = (type, idOrCollectionId) => {
         try {
           const token = localStorage.getItem("token");
           const res = await fetch(
-            `/api/admin/get-single/${type}/${questionId}`,
+            `${API_BASE}/api/admin/get-single/${type}/${questionId}`,
             { headers: { Authorization: `Bearer ${token}` } },
           );
           const data = await res.json();
@@ -86,8 +88,8 @@ export const useQuestionForm = (type, idOrCollectionId) => {
     };
 
     const url = questionId
-      ? `/api/admin/update/${type}/${questionId}`
-      : `/api/admin/add/${type}`;
+      ? `${API_BASE}/api/admin/update/${type}/${questionId}`
+      : `${API_BASE}/api/admin/add/${type}`;
 
     try {
       const token = localStorage.getItem("token");

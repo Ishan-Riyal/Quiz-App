@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 function UserHistoryScreen() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ function UserHistoryScreen() {
   useEffect(() => {
     const getHistory = async () => {
       try {
-        const response = await fetch("/api/users/history", {
+        const response = await fetch(`${API_BASE}/api/users/history`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
@@ -30,7 +32,6 @@ function UserHistoryScreen() {
 
   return (
     <div className="min-h-screen bg-[#F5F3FF] p-6 font-bold text-slate-900">
-      {/* --- HEADER --- */}
       <div className="max-w-md mx-auto mb-8 flex items-center justify-between">
         <button
           onClick={() => navigate(-1)}
@@ -44,7 +45,6 @@ function UserHistoryScreen() {
         <div className="w-10"></div>
       </div>
 
-      {/* --- HISTORY LIST --- */}
       <div className="max-w-md mx-auto space-y-4">
         {history.length > 0 ? (
           history.map((item) => (

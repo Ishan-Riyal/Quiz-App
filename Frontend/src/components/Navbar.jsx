@@ -20,7 +20,6 @@ function Navbar() {
   return (
     <nav className="w-full bg-[#FAF9F6]/90 backdrop-blur-xl py-4 sticky top-0 z-100 border-b border-slate-200 transition-all duration-500">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6">
-        {/* --- LOGO --- */}
         <Link
           to="/"
           className="text-2xl md:text-3xl font-black text-[#1E1B4B] tracking-tighter hover:scale-105 transition-transform duration-300"
@@ -28,7 +27,6 @@ function Navbar() {
           MERN<span className="text-[#6366F1]">QUIZ.</span>
         </Link>
 
-        {/* --- RIGHT SIDE --- */}
         <div className="flex items-center gap-6">
           {!isAuthenticated ? (
             <div className="flex gap-6 items-center">
@@ -46,7 +44,6 @@ function Navbar() {
               </Link>
             </div>
           ) : (
-            /* --- PROFILE DROPDOWN --- */
             <div
               className="relative"
               onMouseEnter={() => setIsDropdownOpen(true)}
@@ -80,7 +77,6 @@ function Navbar() {
                 </div>
               </button>
 
-              {/* --- SMOOTH DROPDOWN MENU --- */}
               <div
                 className={`absolute right-0 pt-3 w-56 z-50 transition-all duration-300 ease-out 
                 ${isDropdownOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible pointer-events-none"}`}

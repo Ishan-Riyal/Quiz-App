@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { updateProfilePic } from "../features/auth/authSlice";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 function ProfileScreen() {
   const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [stats, setStats] = useState({ best: 0, total: 0, avg: 0 });
   const [uploading, setUploading] = useState(false);
-
-  const API_BASE = "";
 
   useEffect(() => {
     const fetchStats = async () => {

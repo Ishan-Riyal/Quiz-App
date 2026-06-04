@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export function useReveal(questionId, mode) {
   const [revealedData, setRevealedData] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,13 +14,16 @@ export function useReveal(questionId, mode) {
     if (!questionId) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/quiz/theory/reveal/${questionId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const res = await fetch(
+        `${API_BASE}/api/quiz/theory/reveal/${questionId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
-      });
+      );
       const data = await res.json();
       setRevealedData(data.answer);
     } catch (err) {

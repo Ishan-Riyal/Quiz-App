@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useImportQuestions = (type, activeId, category) => {
   const navigate = useNavigate();
 
@@ -28,7 +30,7 @@ export const useImportQuestions = (type, activeId, category) => {
           collectionId: activeId,
         }));
 
-        const res = await fetch(`/api/admin/multiple-add/${type}`, {
+        const res = await fetch(`${API_BASE}/api/admin/multiple-add/${type}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

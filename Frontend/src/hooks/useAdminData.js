@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useAdminData = () => {
   const [users, setUsers] = useState([]);
   const [collections, setCollections] = useState([]);
@@ -14,9 +16,9 @@ export const useAdminData = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [userRes, colRes, chartRes] = await Promise.all([
-        fetch("/api/admin/users", { headers }),
-        fetch("/api/collection/all", { headers }),
-        fetch("/api/admin/analytics", { headers }),
+        fetch(`${API_BASE}/api/admin/users`, { headers }),
+        fetch(`${API_BASE}/api/collection/all`, { headers }),
+        fetch(`${API_BASE}/api/admin/analytics`, { headers }),
       ]);
 
       if (userRes.ok) setUsers(await userRes.json());
@@ -38,7 +40,7 @@ export const useAdminData = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/collection/${id}`, {
+      const res = await fetch(`${API_BASE}/api/collection/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -9,7 +11,7 @@ export const useUsers = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const res = await fetch("/api/admin/users", {
+      const res = await fetch(`${API_BASE}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -24,7 +26,7 @@ export const useUsers = () => {
   const toggleStatus = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/admin/toggle-status/${id}`, {
+      const res = await fetch(`${API_BASE}/api/admin/toggle-status/${id}`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -50,7 +52,7 @@ export const useUsers = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/admin/users/${id}`, {
+      const res = await fetch(`${API_BASE}/api/admin/users/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -66,7 +68,7 @@ export const useUsers = () => {
   const toggleRole = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/admin/role/${id}`, {
+      const res = await fetch(`${API_BASE}/api/admin/role/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });

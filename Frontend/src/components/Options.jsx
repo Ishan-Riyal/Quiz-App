@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { newAnswer } from "../features/quiz/quizSlice";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 function Options({ currentQuestion }) {
   const dispatch = useDispatch();
   const { answer, serverCorrectOption } = useSelector((state) => state.quiz);
@@ -12,7 +14,7 @@ function Options({ currentQuestion }) {
   const checkAnswer = async (optionValue) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("/api/quiz/mcqs/check", {
+      const res = await fetch(`${API_BASE}/api/quiz/mcqs/check`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,26 +53,10 @@ function Options({ currentQuestion }) {
             disabled={hasAnswered}
             className={`
               relative w-[95%] text-left p-3.5 rounded-xl font-black text-xs transition-all duration-300 border-2 flex items-center group
-              ${
-                !hasAnswered
-                  ? "bg-white border-slate-100 text-[#1E1B4B] hover:border-[#6366F1] hover:pl-6 hover:bg-indigo-50/30"
-                  : ""
-              }
-              ${
-                isCurrentCorrect
-                  ? "bg-[#D1FAE5] border-[#10B981] text-[#064E3B] shadow-[3px_3px_0px_0px_#10B981]"
-                  : ""
-              }
-              ${
-                isWrong
-                  ? "bg-[#FFE4E6] border-[#F43F5E] text-[#9F1239] shadow-[3px_3px_0px_0px_#F43F5E]"
-                  : ""
-              }
-              ${
-                hasAnswered && !isCurrentCorrect && !isSelected
-                  ? "opacity-40 grayscale-[0.5] border-slate-100"
-                  : ""
-              }
+              ${!hasAnswered ? "bg-white border-slate-100 text-[#1E1B4B] hover:border-[#6366F1] hover:pl-6 hover:bg-indigo-50/30" : ""}
+              ${isCurrentCorrect ? "bg-[#D1FAE5] border-[#10B981] text-[#064E3B] shadow-[3px_3px_0px_0px_#10B981]" : ""}
+              ${isWrong ? "bg-[#FFE4E6] border-[#F43F5E] text-[#9F1239] shadow-[3px_3px_0px_0px_#F43F5E]" : ""}
+              ${hasAnswered && !isCurrentCorrect && !isSelected ? "opacity-40 grayscale-[0.5] border-slate-100" : ""}
             `}
           >
             <span

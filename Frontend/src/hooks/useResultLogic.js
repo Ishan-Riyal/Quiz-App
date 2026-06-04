@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useResultLogic = (questions, userAnswers, token, mode) => {
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,14 +13,17 @@ export const useResultLogic = (questions, userAnswers, token, mode) => {
       try {
         setLoading(true);
         const typePath = mode?.startsWith("coding") ? "coding" : "mcq";
-        const res = await fetch(`/api/quiz/${typePath}/all-answers`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+        const res = await fetch(
+          `${API_BASE}/api/quiz/${typePath}/all-answers`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ questionIds: questions.map((q) => q._id) }),
           },
-          body: JSON.stringify({ questionIds: questions.map((q) => q._id) }),
-        });
+        );
         const data = await res.json();
         if (res.ok) setCorrectAnswers(data.answers);
       } catch (err) {
@@ -30,14 +35,11 @@ export const useResultLogic = (questions, userAnswers, token, mode) => {
     if (questions.length > 0) fetchAnswers();
   }, [questions, token, mode]);
 
-  // Processes raw data into clear statuses
   const reviewData = useMemo(() => {
     return questions.map((q, i) => {
       const uAnsText = userAnswers[i];
       const cAnsText = correctAnswers[i];
 
-      // CRITICAL LOGIC:
-      // null means "Never touched" or "Passed over"
       const isAttempted = uAnsText !== null && uAnsText !== undefined;
 
       const isCorrect =
@@ -45,10 +47,7 @@ export const useResultLogic = (questions, userAnswers, token, mode) => {
         String(uAnsText).trim().toLowerCase() ===
           String(cAnsText).trim().toLowerCase();
 
-      // WRONG is attempted but incorrect
       const isWrong = isAttempted && !isCorrect;
-
-      // SKIPPED is when the user reached this question but uAnsText is null
       const isSkipped = !isAttempted;
 
       const foundIdx = q.options.findIndex(
@@ -69,16 +68,12 @@ export const useResultLogic = (questions, userAnswers, token, mode) => {
     });
   }, [questions, userAnswers, correctAnswers]);
 
-  // Handles filtering and ensures we start from Question 1
   const filteredData = useMemo(() => {
-    // Find the furthest point reached in the userAnswers array
-    // findLastIndex ensures we catch the end of the current session
     const lastAnsweredIndex = userAnswers.reduce(
       (maxIdx, val, idx) => (val !== null ? idx : maxIdx),
       -1,
     );
 
-    // Slice everything from Question 1 up to the last touched question
     const sessionProgress = reviewData.slice(0, lastAnsweredIndex + 1);
 
     if (filter === "all") return sessionProgress;

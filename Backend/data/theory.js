@@ -1222,7 +1222,7 @@ const theoryQuestions = [
     type: "theory",
     title: "What is an API endpoint?",
     answer:
-      "An endpoint is a specific URL where an API can be accessed. It represents a specific resource or action. Example: /api/users or /api/users/:id",
+      "An endpoint is a specific URL where an API can be accessed. It represents a specific resource or action. Example: `${API_BASE}/api/users or `${API_BASE}/api/users/:id",
   },
   {
     category: "Beginner",

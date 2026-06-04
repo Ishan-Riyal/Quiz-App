@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 function AddCollection({ refreshCategories, closeModal }) {
   const [name, setName] = useState("");
 
@@ -8,7 +10,7 @@ function AddCollection({ refreshCategories, closeModal }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/api/collection/add", {
+      const res = await fetch(`${API_BASE}/api/collection/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

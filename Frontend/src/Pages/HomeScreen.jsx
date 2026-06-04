@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 function HomeScreen() {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [collections, setCollections] = useState([]);
@@ -11,7 +13,7 @@ function HomeScreen() {
   useEffect(() => {
     const getCollections = async () => {
       try {
-        const res = await fetch("/api/collection/all");
+        const res = await fetch(`${API_BASE}/api/collection/all`);
         const data = await res.json();
         setCollections(data);
       } catch (err) {
@@ -31,7 +33,6 @@ function HomeScreen() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-6 py-16">
-        {/* HERO SECTION */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16 mb-24">
           <div className="text-left max-w-2xl">
             <h1 className="text-7xl md:text-8xl font-black text-[#1E1B4B] leading-[0.9] mb-8 tracking-tighter">
@@ -51,7 +52,6 @@ function HomeScreen() {
             </button>
           </div>
 
-          {/* Decorative Element */}
           <div className="hidden lg:flex w-80 h-80 bg-white border-[6px] border-[#1E1B4B] rounded-[50px] rotate-3 shadow-[20px_20px_0px_0px_rgba(30,27,75,1)] items-center justify-center relative">
             <div className="absolute inset-4 border-2 border-dashed border-indigo-200 rounded-[35px]"></div>
             <span className="text-9xl -rotate-3 group-hover:scale-110 transition-transform cursor-default">
@@ -60,7 +60,6 @@ function HomeScreen() {
           </div>
         </div>
 
-        {/* TOPICS SECTION */}
         <div className="space-y-12">
           <div className="flex items-center gap-6">
             <h2 className="text-2xl font-black uppercase tracking-widest text-[#1E1B4B]">
@@ -76,19 +75,15 @@ function HomeScreen() {
                 onClick={() => handleStart(col.name)}
                 className="group cursor-pointer"
               >
-                {/* Fixed height (h-64) keeps them all identical */}
                 <div className="relative h-64 bg-white border-4 border-[#1E1B4B] p-10 rounded-[35px] shadow-[10px_10px_0px_0px_rgba(30,27,75,1)] group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1 transition-all duration-300 flex flex-col justify-between">
-                  {/* Active Badge */}
                   <div className="absolute -top-4 -right-4 bg-[#F43F5E] text-white text-[10px] px-4 py-1.5 rounded-full font-black uppercase tracking-widest border-2 border-[#1E1B4B]">
                     Active
                   </div>
 
-                  {/* Category Name */}
                   <h3 className="text-3xl font-black text-[#1E1B4B] uppercase leading-tight line-clamp-2">
                     {col.name}
                   </h3>
 
-                  {/* Start Link - Pushed to bottom by justify-between */}
                   <div className="flex items-center gap-2 text-[#6366F1] font-black uppercase text-[11px] tracking-widest group-hover:text-[#F43F5E] transition-colors">
                     Start Assessment <span className="text-xl">→</span>
                   </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 const MultipleUploads = ({ type, refreshList }) => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -12,7 +14,7 @@ const MultipleUploads = ({ type, refreshList }) => {
         const jsonData = JSON.parse(event.target.result);
         const token = localStorage.getItem("token");
 
-        const res = await fetch(`/api/quiz/multiple-add/${type}`, {
+        const res = await fetch(`${API_BASE}/api/quiz/multiple-add/${type}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

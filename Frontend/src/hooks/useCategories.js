@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const useCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -8,7 +10,7 @@ export const useCategories = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/categories");
+      const res = await fetch(`${API_BASE}/api/categories`);
       const data = await res.json();
       if (res.ok) setCategories(data);
     } catch (err) {
@@ -21,7 +23,7 @@ export const useCategories = () => {
   const AddCollection = async (catData) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/api/categories", {
+      const res = await fetch(`${API_BASE}/api/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

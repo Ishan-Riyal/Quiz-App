@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export const fetchQuizData = createAsyncThunk(
   "quiz/fetchCategory",
   async ({ category, type }, { rejectWithValue }) => {
     try {
-      const res = await fetch(`/api/quiz/${category}?type=${type}`, {
+      const res = await fetch(`${API_BASE}/api/quiz/${category}?type=${type}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +34,7 @@ const initialState = {
   mode: null,
   index: 0,
   answer: null,
-  userAnswers: [], // This will now hold answers for ALL questions
+  userAnswers: [],
   serverCorrectOption: null,
   points: 0,
   totalPoints: 0,
@@ -58,7 +60,6 @@ const quizSlice = createSlice({
       state.answer = null;
       state.serverCorrectOption = null;
 
-      // FIX: Initialize userAnswers for ALL questions only once
       if (state.userAnswers.length === 0) {
         state.userAnswers = new Array(state.allQuestions.length).fill(null);
       }
@@ -70,13 +71,11 @@ const quizSlice = createSlice({
 
     newAnswer(state, action) {
       const pageSize = state.mode === "coding" ? 10 : 50;
-      // FIX: Calculate Global Index so Part 2 doesn't overwrite Part 1
       const globalIndex = (state.currentPart - 1) * pageSize + state.index;
 
       state.answer = action.payload.selected;
       state.serverCorrectOption = action.payload.correct;
 
-      // Save to the specific spot in the big array
       state.userAnswers[globalIndex] = action.payload.selected;
 
       if (action.payload.selected === action.payload.correct) {
@@ -149,7 +148,6 @@ const quizSlice = createSlice({
         state.status = "ready";
         state.totalPoints = 0;
         state.currentPart = 1;
-        // Pre-fill answers with null based on total question count
         state.userAnswers = new Array(action.payload.data.length).fill(null);
       })
       .addCase(fetchQuizData.rejected, (state) => {
