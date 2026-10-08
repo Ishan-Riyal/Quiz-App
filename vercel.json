@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://quiz-app-backend-fher.onrender.com/api/:path*"
+      "destination": "https://quiz-app-backend-8n1a.onrender.com/api/:path*"
     },
     {
       "source": "/((?!api/).*)",
