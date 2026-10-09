@@ -18,13 +18,36 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:8173",
+//       "https://quiz-app-frontend-kappa-swart.vercel.app",
+//       process.env.CLIENT_URL,
+//     ],
+//     credentials: true,
+//   }),
+// );
+
+const allowedOrigins = [
+  "http://localhost:8173",
+  "http://localhost:5173",
+  "https://quiz-app-seven-blue-90.vercel.app",
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:8173",
-      "https://quiz-app-frontend-kappa-swart.vercel.app",
-      process.env.CLIENT_URL,
-    ],
+    origin: (origin, callback) => {
+      if (
+        !origin || // Postman, curl
+        allowedOrigins.includes(origin) ||
+        /^https:\/\/quiz-.*-ishan-riyals-projects\.vercel\.app$/.test(origin)
+      ) {
+        return callback(null, true);
+      }
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   }),
 );
